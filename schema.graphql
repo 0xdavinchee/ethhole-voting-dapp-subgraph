@@ -1,0 +1,30 @@
+type Candidate implements Candidate @entity {
+  id: ID!
+  electionId: BigInt!
+  candidateId: BigInt!
+  address: Bytes!
+  voteCount: BigInt!
+  name: String!
+}
+
+type PastElection @entity {
+  id: ID!
+  electionId: BigInt!
+  winnerName: String!
+  voteCount: BigInt!
+  winnerAddress: Bytes
+}
+
+type StartElectionEvent @entity {
+  id: ID!
+  electionId: BigInt!
+  registrationEndPeriod: BigInt!
+  votingEndPeriod: BigInt!
+}
+
+type VoteForCandidateEvent @entity {
+  id: ID!
+  electionId: BigInt!
+  candidateAddress: Bytes!
+  voteCount: BigInt!
+}
