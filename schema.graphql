@@ -1,11 +1,3 @@
-type ActiveElection @entity {
-  id: ID!
-  electionId: BigInt!
-  registrationEndPeriod: BigInt!
-  votingEndPeriod: BigInt!
-  candidates: [Candidate!]! @derivedFrom(field: "election")
-}
-
 type Candidate @entity {
   id: ID!
   electionId: BigInt!
@@ -13,7 +5,15 @@ type Candidate @entity {
   address: Bytes!
   voteCount: BigInt!
   name: String!
-  election: ActiveElection!
+  election: Election!
+}
+
+type Election @entity {
+  id: ID!
+  electionId: BigInt!
+  registrationEndPeriod: BigInt!
+  votingEndPeriod: BigInt!
+  candidates: [Candidate!]! @derivedFrom(field: "election")
 }
 
 type PastElection @entity {

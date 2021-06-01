@@ -12,73 +12,6 @@ import {
   BigDecimal
 } from "@graphprotocol/graph-ts";
 
-export class ActiveElection extends Entity {
-  constructor(id: string) {
-    super();
-    this.set("id", Value.fromString(id));
-  }
-
-  save(): void {
-    let id = this.get("id");
-    assert(id !== null, "Cannot save ActiveElection entity without an ID");
-    assert(
-      id.kind == ValueKind.STRING,
-      "Cannot save ActiveElection entity with non-string ID. " +
-        'Considering using .toHex() to convert the "id" to a string.'
-    );
-    store.set("ActiveElection", id.toString(), this);
-  }
-
-  static load(id: string): ActiveElection | null {
-    return store.get("ActiveElection", id) as ActiveElection | null;
-  }
-
-  get id(): string {
-    let value = this.get("id");
-    return value.toString();
-  }
-
-  set id(value: string) {
-    this.set("id", Value.fromString(value));
-  }
-
-  get electionId(): BigInt {
-    let value = this.get("electionId");
-    return value.toBigInt();
-  }
-
-  set electionId(value: BigInt) {
-    this.set("electionId", Value.fromBigInt(value));
-  }
-
-  get registrationEndPeriod(): BigInt {
-    let value = this.get("registrationEndPeriod");
-    return value.toBigInt();
-  }
-
-  set registrationEndPeriod(value: BigInt) {
-    this.set("registrationEndPeriod", Value.fromBigInt(value));
-  }
-
-  get votingEndPeriod(): BigInt {
-    let value = this.get("votingEndPeriod");
-    return value.toBigInt();
-  }
-
-  set votingEndPeriod(value: BigInt) {
-    this.set("votingEndPeriod", Value.fromBigInt(value));
-  }
-
-  get candidates(): Array<string> {
-    let value = this.get("candidates");
-    return value.toStringArray();
-  }
-
-  set candidates(value: Array<string>) {
-    this.set("candidates", Value.fromStringArray(value));
-  }
-}
-
 export class Candidate extends Entity {
   constructor(id: string) {
     super();
@@ -161,6 +94,73 @@ export class Candidate extends Entity {
 
   set election(value: string) {
     this.set("election", Value.fromString(value));
+  }
+}
+
+export class Election extends Entity {
+  constructor(id: string) {
+    super();
+    this.set("id", Value.fromString(id));
+  }
+
+  save(): void {
+    let id = this.get("id");
+    assert(id !== null, "Cannot save Election entity without an ID");
+    assert(
+      id.kind == ValueKind.STRING,
+      "Cannot save Election entity with non-string ID. " +
+        'Considering using .toHex() to convert the "id" to a string.'
+    );
+    store.set("Election", id.toString(), this);
+  }
+
+  static load(id: string): Election | null {
+    return store.get("Election", id) as Election | null;
+  }
+
+  get id(): string {
+    let value = this.get("id");
+    return value.toString();
+  }
+
+  set id(value: string) {
+    this.set("id", Value.fromString(value));
+  }
+
+  get electionId(): BigInt {
+    let value = this.get("electionId");
+    return value.toBigInt();
+  }
+
+  set electionId(value: BigInt) {
+    this.set("electionId", Value.fromBigInt(value));
+  }
+
+  get registrationEndPeriod(): BigInt {
+    let value = this.get("registrationEndPeriod");
+    return value.toBigInt();
+  }
+
+  set registrationEndPeriod(value: BigInt) {
+    this.set("registrationEndPeriod", Value.fromBigInt(value));
+  }
+
+  get votingEndPeriod(): BigInt {
+    let value = this.get("votingEndPeriod");
+    return value.toBigInt();
+  }
+
+  set votingEndPeriod(value: BigInt) {
+    this.set("votingEndPeriod", Value.fromBigInt(value));
+  }
+
+  get candidates(): Array<string> {
+    let value = this.get("candidates");
+    return value.toStringArray();
+  }
+
+  set candidates(value: Array<string>) {
+    this.set("candidates", Value.fromStringArray(value));
   }
 }
 

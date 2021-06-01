@@ -14,8 +14,8 @@ dataSources:
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
-        - ActiveElection
         - Candidate
+        - Election
         - PastElection
         - VoteForCandidateEvent
       abis:

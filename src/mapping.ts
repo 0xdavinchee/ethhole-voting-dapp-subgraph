@@ -1,12 +1,11 @@
 import { BigInt } from "@graphprotocol/graph-ts"
 import {
-  Voting,
   ArchivePastElection,
   RegisterCandidate,
   StartElection,
   VoteForCandidate
 } from "../generated/Voting/Voting"
-import { Candidate, ActiveElection, PastElection, VoteForCandidateEvent } from "../generated/schema"
+import { Candidate, Election, PastElection, VoteForCandidateEvent } from "../generated/schema"
 
 export function handleArchivePastElection(event: ArchivePastElection): void {
   let pastElection = new PastElection(event.params.electionId.toHex());
@@ -34,7 +33,7 @@ export function handleRegisterCandidate(event: RegisterCandidate): void {
 }
 
 export function handleStartElection(event: StartElection): void {
-  let newElection = new ActiveElection(event.params.electionId.toHex());
+  let newElection = new Election(event.params.electionId.toHex());
   newElection.electionId = event.params.electionId;
   newElection.registrationEndPeriod = event.params.registrationEndPeriod;
   newElection.votingEndPeriod = event.params.votingEndPeriod;
