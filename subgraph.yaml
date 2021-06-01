@@ -6,7 +6,7 @@ dataSources:
     name: Voting
     network: rinkeby
     source:
-      address: "0x62B92a6e887Da71a4Ad9e2d8767e0C7C16633a61"
+      address: "0xd34240D859af846765F5BfD483926d24FD3937F7"
       abi: Voting
       startBlock: 8681453
     mapping:

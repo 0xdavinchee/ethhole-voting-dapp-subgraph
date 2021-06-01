@@ -1,4 +1,4 @@
-type Candidate implements Candidate @entity {
+type Candidate @entity {
   id: ID!
   electionId: BigInt!
   candidateId: BigInt!
