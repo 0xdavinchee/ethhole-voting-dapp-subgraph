@@ -6,18 +6,18 @@ dataSources:
     name: Voting
     network: rinkeby
     source:
-      address: "0xd34240D859af846765F5BfD483926d24FD3937F7"
+      address: "0x340632f0199C4f9C073f493bddd2873Db0B5806C"
       abi: Voting
-      startBlock: 8681453
+      startBlock: 8684992
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
+        - ActiveElection
         - Candidate
         - PastElection
-        - StartElection
-        - VoteForCandidate
+        - VoteForCandidateEvent
       abis:
         - name: Voting
           file: ./abis/Voting.json
@@ -28,6 +28,6 @@ dataSources:
           handler: handleRegisterCandidate
         - event: StartElection(indexed uint256,uint256,uint256)
           handler: handleStartElection
-        - event: VoteForCandidate(indexed uint256,indexed address,uint256)
+        - event: VoteForCandidate(indexed uint256,uint256,uint256)
           handler: handleVoteForCandidate
       file: ./src/mapping.ts

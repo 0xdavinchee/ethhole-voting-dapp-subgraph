@@ -109,8 +109,8 @@ export class VoteForCandidate__Params {
     return this._event.parameters[0].value.toBigInt();
   }
 
-  get candidateAddress(): Address {
-    return this._event.parameters[1].value.toAddress();
+  get candidateId(): BigInt {
+    return this._event.parameters[1].value.toBigInt();
   }
 
   get voteCount(): BigInt {
@@ -554,6 +554,40 @@ export class StartElectionCall__Outputs {
   _call: StartElectionCall;
 
   constructor(call: StartElectionCall) {
+    this._call = call;
+  }
+}
+
+export class UpdateTimeCall extends ethereum.Call {
+  get inputs(): UpdateTimeCall__Inputs {
+    return new UpdateTimeCall__Inputs(this);
+  }
+
+  get outputs(): UpdateTimeCall__Outputs {
+    return new UpdateTimeCall__Outputs(this);
+  }
+}
+
+export class UpdateTimeCall__Inputs {
+  _call: UpdateTimeCall;
+
+  constructor(call: UpdateTimeCall) {
+    this._call = call;
+  }
+
+  get _registrationEndPeriod(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
+  }
+
+  get _votingEndPeriod(): BigInt {
+    return this._call.inputValues[1].value.toBigInt();
+  }
+}
+
+export class UpdateTimeCall__Outputs {
+  _call: UpdateTimeCall;
+
+  constructor(call: UpdateTimeCall) {
     this._call = call;
   }
 }

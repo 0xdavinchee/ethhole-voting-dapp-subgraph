@@ -91,10 +91,10 @@
         "type": "uint256"
       },
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "candidateAddress",
-        "type": "address"
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "candidateId",
+        "type": "uint256"
       },
       {
         "indexed": false,
@@ -205,6 +205,24 @@
       }
     ],
     "name": "startElection",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_registrationEndPeriod",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_votingEndPeriod",
+        "type": "uint256"
+      }
+    ],
+    "name": "updateTime",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

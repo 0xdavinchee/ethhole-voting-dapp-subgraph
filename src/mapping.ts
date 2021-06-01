@@ -1,21 +1,15 @@
-import { BigInt } from "@graphprotocol/graph-ts";
+import { BigInt } from "@graphprotocol/graph-ts"
 import {
+  Voting,
   ArchivePastElection,
   RegisterCandidate,
   StartElection,
-  VoteForCandidate,
-} from "../generated/Voting/Voting";
-import {
-  Candidate,
-  PastElection,
-  StartElectionEvent,
-  VoteForCandidateEvent,
-} from "../generated/schema";
+  VoteForCandidate
+} from "../generated/Voting/Voting"
+import { Candidate, ActiveElection, PastElection, VoteForCandidateEvent } from "../generated/schema"
 
 export function handleArchivePastElection(event: ArchivePastElection): void {
-  let pastElection = new PastElection(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  );
+  let pastElection = new PastElection(event.params.electionId.toHex());
 
   pastElection.electionId = event.params.electionId;
   pastElection.voteCount = event.params.voteCount;
@@ -34,19 +28,18 @@ export function handleRegisterCandidate(event: RegisterCandidate): void {
   candidate.address = event.transaction.from;
   candidate.voteCount = new BigInt(0);
   candidate.name = event.params.name;
+  candidate.election = event.params.electionId.toHex();
 
   candidate.save();
 }
 
 export function handleStartElection(event: StartElection): void {
-  let startElection = new StartElectionEvent(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  );
-  startElection.electionId = event.params.electionId;
-  startElection.registrationEndPeriod = event.params.registrationEndPeriod;
-  startElection.votingEndPeriod = event.params.votingEndPeriod;
+  let newElection = new ActiveElection(event.params.electionId.toHex());
+  newElection.electionId = event.params.electionId;
+  newElection.registrationEndPeriod = event.params.registrationEndPeriod;
+  newElection.votingEndPeriod = event.params.votingEndPeriod;
 
-  startElection.save();
+  newElection.save();
 }
 
 export function handleVoteForCandidate(event: VoteForCandidate): void {
@@ -54,16 +47,16 @@ export function handleVoteForCandidate(event: VoteForCandidate): void {
     event.transaction.hash.toHex() + "-" + event.logIndex.toString()
   );
   voteForCandidateEvent.electionId = event.params.electionId;
-  voteForCandidateEvent.candidateAddress = event.params.candidateAddress;
+  voteForCandidateEvent.candidateId = event.params.candidateId;
   voteForCandidateEvent.voteCount = event.params.voteCount;
 
   voteForCandidateEvent.save();
 
   let candidate = Candidate.load(
-    event.params.electionId.toHex() + event.params.candidateAddress.toHex()
+    event.params.electionId.toHex() + event.params.candidateId.toHex()
   );
   if (candidate) {
-    candidate.voteCount.plus(new BigInt(1));
+    candidate.voteCount = event.params.voteCount;
     candidate.save();
   }
 }
