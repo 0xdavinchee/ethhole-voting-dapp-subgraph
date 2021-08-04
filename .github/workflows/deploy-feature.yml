@@ -28,5 +28,5 @@ jobs:
 
         # For simplicity, we can say we only deploy feature branch to Kovan
         - name: "Deploy to Kovan"
-          run: "SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-feature && yarn run deploy:feature --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}"
+          run: "yarn run deploy:feature --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}"
 
