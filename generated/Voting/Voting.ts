@@ -90,6 +90,10 @@ export class StartElection__Params {
   get votingEndPeriod(): BigInt {
     return this._event.parameters[2].value.toBigInt();
   }
+
+  get starter(): Address {
+    return this._event.parameters[3].value.toAddress();
+  }
 }
 
 export class VoteForCandidate extends ethereum.Event {
@@ -134,26 +138,6 @@ export class Voting__candidatesResult {
     map.set("value0", ethereum.Value.fromAddress(this.value0));
     map.set("value1", ethereum.Value.fromUnsignedBigInt(this.value1));
     map.set("value2", ethereum.Value.fromString(this.value2));
-    return map;
-  }
-}
-
-export class Voting__getLiveResultsResult {
-  value0: Array<Address>;
-  value1: Array<BigInt>;
-  value2: BigInt;
-
-  constructor(value0: Array<Address>, value1: Array<BigInt>, value2: BigInt) {
-    this.value0 = value0;
-    this.value1 = value1;
-    this.value2 = value2;
-  }
-
-  toMap(): TypedMap<string, ethereum.Value> {
-    let map = new TypedMap<string, ethereum.Value>();
-    map.set("value0", ethereum.Value.fromAddressArray(this.value0));
-    map.set("value1", ethereum.Value.fromUnsignedBigIntArray(this.value1));
-    map.set("value2", ethereum.Value.fromUnsignedBigInt(this.value2));
     return map;
   }
 }
@@ -245,39 +229,6 @@ export class Voting extends ethereum.SmartContract {
     }
     let value = result.value;
     return ethereum.CallResult.fromValue(value[0].toBigInt());
-  }
-
-  getLiveResults(): Voting__getLiveResultsResult {
-    let result = super.call(
-      "getLiveResults",
-      "getLiveResults():(address[],uint256[],uint256)",
-      []
-    );
-
-    return new Voting__getLiveResultsResult(
-      result[0].toAddressArray(),
-      result[1].toBigIntArray(),
-      result[2].toBigInt()
-    );
-  }
-
-  try_getLiveResults(): ethereum.CallResult<Voting__getLiveResultsResult> {
-    let result = super.tryCall(
-      "getLiveResults",
-      "getLiveResults():(address[],uint256[],uint256)",
-      []
-    );
-    if (result.reverted) {
-      return new ethereum.CallResult();
-    }
-    let value = result.value;
-    return ethereum.CallResult.fromValue(
-      new Voting__getLiveResultsResult(
-        value[0].toAddressArray(),
-        value[1].toBigIntArray(),
-        value[2].toBigInt()
-      )
-    );
   }
 
   getWinnerResults(): Voting__getWinnerResultsResult {

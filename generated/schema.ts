@@ -154,6 +154,15 @@ export class Election extends Entity {
     this.set("votingEndPeriod", Value.fromBigInt(value));
   }
 
+  get starter(): Bytes {
+    let value = this.get("starter");
+    return value.toBytes();
+  }
+
+  set starter(value: Bytes) {
+    this.set("starter", Value.fromBytes(value));
+  }
+
   get candidates(): Array<string> {
     let value = this.get("candidates");
     return value.toStringArray();
