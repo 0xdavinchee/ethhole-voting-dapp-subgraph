@@ -21,7 +21,14 @@ jobs:
           run: "yarn install"
 
         - name: "Generate subgraph manifest"
-          run: "yarn run prepare:mainnet"
+          run: "yarn run prepare:goerli"
         
         - name: "Generate AssemblyScript types"
           run: "yarn run codegen"
+
+        - name: "Deploy to Goerli"
+          run: "yarn run deploy:goerli" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
+
+        - name: "Deploy to Kovan"
+          run: "yarn run deploy:kovan" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
+
