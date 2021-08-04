@@ -25,10 +25,3 @@ jobs:
         
         - name: "Generate AssemblyScript types"
           run: "yarn run codegen"
-        
-        - name: Goerli
-          run: "yarn run deploy:goerli" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
-        
-        - name: Kovan
-          run: "yarn run deploy:kovan" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
-
