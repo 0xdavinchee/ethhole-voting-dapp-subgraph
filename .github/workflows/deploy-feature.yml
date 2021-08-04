@@ -1,14 +1,11 @@
-name: deploy-main
+name: deploy-feature
 
 on: 
   push:
-    branches: [main]
-
-    tags-ignore:
-      - breaking
+    branches: "feature-*"
     
 jobs:
-  cd: 
+  continuous-deployment-to-feature-branch: 
     runs-on: ubuntu-latest
     steps:
         # Checks-out the repository under $GITHUB_WORKSPACE, so your job can access it
@@ -29,9 +26,7 @@ jobs:
         - name: "Generate AssemblyScript types"
           run: "yarn run codegen"
 
-        - name: "Deploy to Goerli"
-          run: "yarn run deploy:goerli --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}"
-
+        # For simplicity, we can say we only deploy feature branch to Kovan
         - name: "Deploy to Kovan"
-          run: "yarn run deploy:kovan --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}"
+          run: "SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-feature && yarn run deploy:feature --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}"
 

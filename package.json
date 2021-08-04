@@ -5,6 +5,7 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy $SUBGRAPH_NAME --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
+    "deploy:feature": "yarn prepare:kovan && yarn deploy",
     "deploy:matic": "yarn prepare:matic && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-matic yarn deploy",
     "deploy:xdai": "yarn prepare:xdai && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-xdai yarn deploy",
     "deploy:goerli": "yarn prepare:goerli && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-goerli yarn deploy",
