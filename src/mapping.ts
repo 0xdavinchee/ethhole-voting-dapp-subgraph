@@ -37,6 +37,7 @@ export function handleStartElection(event: StartElection): void {
   newElection.electionId = event.params.electionId;
   newElection.registrationEndPeriod = event.params.registrationEndPeriod;
   newElection.votingEndPeriod = event.params.votingEndPeriod;
+  newElection.starter = event.params.starter;
 
   newElection.save();
 }

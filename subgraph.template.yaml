@@ -26,7 +26,7 @@ dataSources:
           handler: handleArchivePastElection
         - event: RegisterCandidate(indexed uint256,uint256,string)
           handler: handleRegisterCandidate
-        - event: StartElection(indexed uint256,uint256,uint256)
+        - event: StartElection(indexed uint256,uint256,uint256,address)
           handler: handleStartElection
         - event: VoteForCandidate(indexed uint256,uint256,uint256)
           handler: handleVoteForCandidate
