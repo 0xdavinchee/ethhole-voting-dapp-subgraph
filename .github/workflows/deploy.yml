@@ -27,8 +27,8 @@ jobs:
           run: "yarn run codegen"
 
         - name: "Deploy to Goerli"
-          run: "yarn run deploy:goerli" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
+          run: "yarn run deploy:goerli --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}"
 
         - name: "Deploy to Kovan"
-          run: "yarn run deploy:kovan" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
+          run: "yarn run deploy:kovan --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}"
 
