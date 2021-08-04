@@ -4,13 +4,28 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ 0xdavinchee/ethhole-voting-dapp",
+    "deploy": "graph deploy $SUBGRAPH_NAME --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/",
+    "deploy:matic": "yarn prepare:matic && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-matic yarn deploy",
+    "deploy:xdai": "yarn prepare:xdai && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-xdai yarn deploy",
+    "deploy:goerli": "yarn prepare:goerli && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-goerli yarn deploy",
+    "deploy:kovan": "yarn prepare:kovan && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-kovan yarn deploy",
+    "deploy:rinkeby": "yarn prepare:rinkeby && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-rinkeby yarn deploy",
+    "deploy:ropsten": "yarn prepare:ropsten && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-ropsten yarn deploy",
+    "deploy:mumbai": "yarn prepare:mumbai && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-mumbai yarn deploy",
+    "prepare:matic": "yarn prepare:matic && SUBGRAPH_NAME=0xdavinchee/ethhole-voting-dapp-matic",
+    "prepare:xdai": "mustache ./networks/xdai.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:goerli": "mustache ./networks/goerli.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:kovan": "mustache ./networks/kovan.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:rinkeby": "mustache ./networks/rinkeby.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:ropsten": "mustache ./networks/ropsten.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:mumbai": "mustache ./networks/mumbai.json subgraph.template.yaml > subgraph.yaml",
     "create-local": "graph create --node http://localhost:8020/ 0xdavinchee/ethhole-voting-dapp",
     "remove-local": "graph remove --node http://localhost:8020/ 0xdavinchee/ethhole-voting-dapp",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 0xdavinchee/ethhole-voting-dapp"
   },
   "dependencies": {
-    "@graphprotocol/graph-cli": "0.20.0",
-    "@graphprotocol/graph-ts": "0.20.0"
+    "@graphprotocol/graph-cli": "0.21.1",
+    "@graphprotocol/graph-ts": "0.20.1",
+    "mustache": "^4.2.0"
   }
 }

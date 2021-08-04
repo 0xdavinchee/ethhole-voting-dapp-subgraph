@@ -1,0 +1,34 @@
+name: deploy
+
+on: 
+  push:
+    branches: [main]
+    
+jobs:
+  cd: 
+    runs-on: ubuntu-latest
+    steps:
+        # Checks-out the repository under $GITHUB_WORKSPACE, so your job can access it
+        - uses: actions/checkout@v2
+
+        - name: "Install Node"
+          uses: "actions/setup-node@v2"
+          with:
+            cache: "yarn"
+            node-version: "16"
+          
+        - name: "Install dependencies"
+          run: "yarn install"
+
+        - name: "Generate subgraph manifest"
+          run: "yarn run prepare:mainnet"
+        
+        - name: "Generate AssemblyScript types"
+          run: "yarn run codegen"
+        
+        - name: "Deploy to Goerli"
+          run: "yarn run deploy:goerli" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
+        
+        - name: "Deploy to Kovan"
+          run: "yarn run deploy:kovan" --access-token ${{ secrets.GRAPH_ACCESS_TOKEN }}
+

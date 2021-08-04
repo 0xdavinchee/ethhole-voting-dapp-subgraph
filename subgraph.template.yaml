@@ -4,9 +4,9 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Voting
-    network: rinkeby
+    network: {{network}}
     source:
-      address: "0x340632f0199C4f9C073f493bddd2873Db0B5806C"
+      address: {{address}}
       abi: Voting
       startBlock: 8684992
     mapping:
