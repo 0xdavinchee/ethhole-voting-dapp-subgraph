@@ -6,9 +6,9 @@ dataSources:
     name: Voting
     network: {{network}}
     source:
-      address: {{address}}
+      address: "{{address}}"
       abi: Voting
-      startBlock: 8684992
+      startBlock: {{startingBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
